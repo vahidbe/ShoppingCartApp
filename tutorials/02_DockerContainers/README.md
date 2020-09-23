@@ -168,7 +168,7 @@ Any environment variable set in a Dockerfile is available in its container.
 :pencil2: **Exercise.**
 Create an image using the previous Dockerfile and name it `web-db`.
 
-Once you create the `web-db` image you may run a new container out of it with `docker run -d web-db` -- the `-d` flag tells docker to run the container in the background.
+Once you create the `web-db` image you may run a new container out of it with `docker run -d --name web-db-container web-db` -- the `-d` flag tells docker to run the container in the background, the `--name` names the container (here `web-db-container`).
 
 :pencil2: **Exercises.**
 
@@ -203,6 +203,8 @@ docker run -d \
     --link web-db-container:mysql \
     # share the password to access the DB
     -e WORDPRESS_DB_PASSWORD=mariadb \
+    # name this container 
+    --name wordpress-container
     # a container is an instance of the Wordpress Docker image
     wordpress
 ```

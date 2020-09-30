@@ -1,0 +1,30 @@
+---
+name: App
+menu: Components
+route: /mdx/App.mdx
+---
+
+import { Props } from 'docz'
+import { App } from '../jsx/App'
+
+# App
+The main component that hosts the shopping cart application and orchestrates which Web page users may see on their Web browsers. Two components form a web page:
+
+- `<FlashMessages />` banner with some informative messages
+- And only one of the following components:
+  - `<AdminForm />` administrator page to update the catalog of products
+    - Users may access this page with the route `/admin`
+  - `<RegisterForm />` form to create a user account
+  - `<LoginForm />` log in page
+  - `<ShoppingCartApp />` application main page, only authenticated users are allowed to perform purchases
+
+Take a look at the `App.render()` method to see how the different web pages are shown.
+
+In a nutshell, `App` uses its state (`App.state`) to allow authenticated users perform purchases and restrict anonymous users (non authenticated users) only to consult the catalog of products (source file: `front-end/src/App.jsx`).
+
+## **Properties**
+This section contains a brief description of instance attributes and instance methods in an `App` component.
+<Props of={App} />
+
+## **Note for improvements**
+Changes in `App` may impact the content of web pages or the order in which such pages appear. **Refer to the component `<ShoppingCartApp />` to improve the shopping cart application or make calls to other micro-services from this front-end.**

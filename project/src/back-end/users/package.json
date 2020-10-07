@@ -13,6 +13,8 @@
     "jwt-simple": "0.5.0",
     "moment": "2.15.2",
 
+    "nano": "6.4.3",
+
     "gulp": "3.9.1",
     "gulp-nodemon": "2.2.1"
   }

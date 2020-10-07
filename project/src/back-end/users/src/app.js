@@ -2,7 +2,8 @@ const express = require('express')
 const log = require('debug')('users-d')
 
 const app = express.Router()
-const db = require('./utils/crud')
+const db =
+  process.env.WITH_PERSISTENT_DATA ? require('./utils/crud-wp') : require('./utils/crud')
 
 app.post('/user', (req, res) => {
   var usr = req.body.username
@@ -13,7 +14,7 @@ app.post('/user', (req, res) => {
       res.status(200).json({ status: 'success', token })
     })
     .catch((err) => {
-      res.status(500).json({ status: 'error', message: String(err) })
+      res.status(409).json({ status: 'error', message: String(err) })
     })
 })
 

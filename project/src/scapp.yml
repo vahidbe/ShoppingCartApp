@@ -1,0 +1,41 @@
+version: "3"
+services:     # list all services for your application
+  # database of users
+  users-db:
+    # image name
+    image: kv-storage-system:latest
+    ports: ["3001:5984"]
+    deploy:
+      # deploy only one instance of this service
+      replicas: 1
+      restart_policy:
+        # restart if something went wrong
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # server that listens HTTP requests
+  users-daemon:
+    image: auth-service:latest
+    # link both services (same effect of option --link in docker run)
+    depends_on: [ "users-db" ]
+    # expose port number 3000 of host running this service
+    ports: [ "3000:80" ]
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # Docker GUI for swarms
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports: [ "80:8080" ]
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      # locate this service in the swarm manager
+      placement:
+        constraints:
+          - node.role == manager
+    networks: [ "scapp-net" ]
+networks:
+  scapp-net:
+    external: true

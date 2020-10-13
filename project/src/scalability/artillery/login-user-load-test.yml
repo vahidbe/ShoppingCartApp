@@ -1,0 +1,10 @@
+config:
+  # Replace (if needed) IP address of VM [node]
+  target: http://scapp_users-daemon
+  phases:
+    - duration: 120
+      arrivalRate: 20
+scenarios:
+  - flow:
+    - get:
+        url: /user/bob/alice

@@ -1,0 +1,21 @@
+version: "3"
+
+networks:
+  movielens:
+    attachable: true
+
+services:
+  ml_db:
+    image: movielens_db
+    build: movielens_db
+    ports:
+      - 8080:5984
+    networks: ["movielens"]
+  ml_init_db:
+    image: movielens_init_db
+    build: movielens_init_db
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: none
+    networks: ["movielens"]

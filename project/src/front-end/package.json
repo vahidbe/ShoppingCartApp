@@ -1,0 +1,24 @@
+{
+  "name": "SCApp_front-end",
+  "version": "0.0.1",
+  "description": "Front-end of a simple shopping-cart application.",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "react": "^15.4.4",
+    "react-custom-scrollbars": "^4.2.1",
+    "react-dom": "^15.4.4",
+    "react-router-dom": "^4.1.1",
+    "react-transition-group": "^1.1.2",
+    "react-horizontal-scrolling-menu": "^0.7.8"
+  },
+  "devDependencies": {
+    "react-scripts": "0.9.5"
+  },
+  "scripts": {
+    "start": "PORT=80 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

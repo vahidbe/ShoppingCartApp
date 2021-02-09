@@ -1,0 +1,162 @@
+version: "3"
+services:     # list all services for your application
+  # database of users
+  users-db:
+    # image name
+    image: kv-storage-system
+    ports: ["3000:5984"]
+    deploy:
+      # deploy only one instance of this service
+      replicas: 1
+      restart_policy:
+        # restart if something went wrong
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # server that listens HTTP requests
+  # database of logs
+  cart-db:
+    # image name
+    image: kv-storage-system
+    ports: ["3008:5984"]
+    deploy:
+      # deploy only one instance of this service
+      replicas: 1
+      restart_policy:
+        # restart if something went wrong
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # server that listens HTTP requests
+  # database of logs
+  logs-db:
+    # image name
+    image: kv-storage-system
+    ports: ["3002:5984"]
+    deploy:
+      # deploy only one instance of this service
+      replicas: 1
+      restart_policy:
+        # restart if something went wrong
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # server that listens HTTP requests
+  # database of orders
+  orders-db:
+    # image name
+    image: kv-storage-system
+    ports: ["3006:5984"]
+    deploy:
+      # deploy only one instance of this service
+      replicas: 1
+      restart_policy:
+        # restart if something went wrong
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # server that listens HTTP requests
+  # database of catalog
+  catalog-db:
+    image: kv-storage-system
+    ports: ["3010:5984"]
+    deploy:
+      # deploy only one instance of this service
+      replicas: 1
+      restart_policy:
+        # restart if something went wrong
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # server that listens HTTP requests
+  users-daemon:
+    image: scapp-auth
+    # link both services (same effect of option --link in docker run)
+    depends_on: [ "users-db", "logger-daemon" ]
+    # expose port number 3001 of host running this service
+    ports: [ "3001:80" ]
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # server that listens HTTP requests
+  validation-daemon:
+    image: scapp-validation
+    # expose port number 3005 of host running this service
+    depends_on: [ "logger-daemon" ]
+    ports: [ "3005:80" ]
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # server that listens HTTP requests
+  orders-daemon:
+    image: scapp-orders
+    # link both services (same effect of option --link in docker run)
+    depends_on: [ "orders-db", "logger-daemon", "validation-daemon" ]
+    # expose port number 3007 of host running this service
+    ports: [ "3007:80" ]
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # server that listens HTTP requests
+  cart-daemon:
+    image: scapp-cart
+    # link both services (same effect of option --link in docker run)
+    depends_on: [ "cart-db", "logger-daemon", "validation-daemon", "orders-daemon" ]
+    # expose port number 3009 of host running this service
+    ports: [ "3009:80" ]
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # server that listens HTTP requests
+  logger-daemon:
+    image: scapp-logger
+    # link both services (same effect of option --link in docker run)
+    depends_on: [ "logs-db" ]
+    # expose port number 3004 of host running this service
+    ports: [ "3004:80" ]
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks: [ "scapp-net" ]
+  # server that listens HTTP requests
+  catalog-daemon:
+    image: scapp-catalog
+    # link both services (same effect of option --link in docker run)
+    depends_on: [ "catalog-db", "logger-daemon", "validation-daemon" ]
+    # expose port number 3011 of host running this service
+    ports: [ "3011:80" ]
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks: [ "scapp-net" ]  
+  # server that listens HTTP requests
+  recommendation-daemon:
+    image: scapp-recommendation
+    # expose port number 3012 of host running this service
+    ports: [ "3012:80" ]
+    depends_on: [ "logs-db", "logger-daemon", "validation-daemon" ]
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks: [ "scapp-net" ]  
+  # Docker GUI for swarms
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports: [ "80:8080" ]
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      # locate this service in the swarm manager
+      placement:
+        constraints:
+          - node.role == manager
+    networks: [ "scapp-net" ]
+networks:
+  scapp-net:
+    external: true

@@ -1,0 +1,83 @@
+%
+% Import des packages
+%
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{amsmath,amssymb}
+\usepackage{lastpage}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multido}
+\usepackage{listings}
+
+% Param�rage des listings
+\lstset{basicstyle=\footnotesize\ttfamily}
+\lstset{keywordstyle=\color[rgb]{0,0,1}\bfseries}
+\lstset{identifierstyle=\color{black}}
+\lstset{commentstyle=\color[rgb]{0,0.4,0}}
+\lstset{stringstyle=\color[rgb]{0.7,0,0}}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{tabsize=3}
+\lstset{extendedchars=true}
+\lstset{breaklines=true}
+\lstset{postbreak={}}
+\lstset{breakautoindent=true}
+\lstset{breakindent=0pt}
+\lstset{xleftmargin=0.1cm}
+\lstset{xrightmargin=0cm}
+\lstset{frame=tb,rulecolor=\color[gray]{.4}}
+\lstset{captionpos=b}
+\lstset{aboveskip=0.5cm,belowskip=0.5cm}
+\lstset{numbers=left}
+\lstset{columns=fixed}
+\lstset{language=java}
+
+%
+% Longueurs du document
+%
+\setlength\textheight{235mm}
+\setlength\topmargin{-10mm}
+\setlength\parindent{0cm}
+\setlength\parskip{0.2cm}
+\setlength\textwidth{170mm}
+\setlength\headwidth{170mm}
+\setlength\oddsidemargin{-0.5cm}
+\setlength\evensidemargin{0cm}
+\setlength\headheight{1cm}
+
+
+%
+% Quelques couleurs
+%
+\definecolor{darkblue}{rgb}{0,0,0.5}
+
+%
+% Pour les ent�es et pieds de page
+%
+\pagestyle{fancy}
+
+\fancyhead[L]{\begin{tabular}{|p{33mm}}\hline\rowcolor[rgb]{0,0,0.5}\textcolor{white}{\small\bf\docsigle}\\\hline\small\bf\docversion\\\hline\end{tabular}}
+\fancyhead[C]{\begin{tabular}{p{9cm}c}\hline\rowcolor[rgb]{0,0,0.5}\centering\textcolor{white}{\bf\small\doctitle}&\\\hline\space &\\\hline\end{tabular}}
+\fancyhead[R]{\begin{tabular}{p{33mm}|}\hline\rowcolor[rgb]{0,0,0.5}\textcolor{white}{\small\bf Dest : \docdest}\\\hline\small\bf Auteur : \docauthor\\\hline\end{tabular}}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{\textcolor[gray]{0.4}{Page \thepage~sur~\pageref{LastPage}}}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+%
+% Quelques nouvelles commandes
+%
+\newcommand{\todo}[1]{\textcolor{red}{TODO: #1}}
+\newcommand{\printtitle}{\begin{center} \LARGE \bf \doctitle \end{center}}
+
+\newenvironment{checklist}{\renewcommand{\arraystretch}{2}\begin{tabular}{|l|p{15cm}|}}{\hline\end{tabular}}
+\newcommand{\clitem}[1]{\hline $\square$ & #1}
+
+\newcommand{\question}[2]{\setlength{\fboxsep}{5mm}\framebox[\textwidth]{\begin{minipage}[!c]{0.95\textwidth} \textbf{#2} {\color[gray]{0.7} \multido{\i=0+1}{#1}{\vspace{20pt} \hrule}} \vspace{10pt} \end{minipage}} \vspace{10pt}}
+

@@ -1,0 +1,5 @@
+*.iso
+*.ovf
+*.vmdk
+tutorials/01_VirtualMachines/myhdd.vdi
+workspace.code-workspace

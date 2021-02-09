@@ -1,0 +1,26 @@
+#
+# This script can be run to compile the scapp application
+#
+
+./buildContainers
+
+docker tag scapp-validation vahidbe/scapp-validation
+docker tag scapp-auth vahidbe/scapp-auth
+docker tag scapp-logger vahidbe/scapp-logger
+docker tag scapp-orders vahidbe/scapp-orders
+docker tag scapp-cart vahidbe/scapp-cart
+docker tag scapp-catalog vahidbe/scapp-catalog
+docker tag scapp-recommendation vahidbe/scapp-recommendation
+docker tag scapp-frontend vahidbe/scapp-frontend
+docker tag kv-storage-system vahidbe/kv-storage-system
+
+docker push vahidbe/scapp-validation
+docker push vahidbe/scapp-auth
+docker push vahidbe/scapp-logger
+docker push vahidbe/scapp-orders
+docker push vahidbe/scapp-cart
+docker push vahidbe/scapp-catalog
+docker push vahidbe/scapp-recommendation
+docker push vahidbe/scapp-frontend
+docker push vahidbe/kv-storage-system
+

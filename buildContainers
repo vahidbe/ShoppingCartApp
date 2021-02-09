@@ -1,0 +1,13 @@
+#
+# This script can be run to compile the scapp application
+#
+
+docker build -t scapp-validation ./project/src/back-end/validation
+docker build -t scapp-auth ./project/src/back-end/users
+docker build -t scapp-logger ./project/src/back-end/logging
+docker build -t scapp-orders ./project/src/back-end/orders
+docker build -t scapp-cart ./project/src/back-end/cart
+docker build -t scapp-catalog ./project/src/back-end/catalog
+docker build -t scapp-recommendation ./project/src/back-end/recommendation
+docker build -t kv-storage-system ./project/src/back-end/storage
+docker build -t scapp-frontend ./project/src/front-end

@@ -1,0 +1,19 @@
+#
+# This script can be run to apply a scalability policy 
+# on scapp on a swarm leader 
+#
+
+chmod +x ./project/src/scalability/apply-policy-of-scalability.sh
+chmod +x ./apply-policy-of-scalability.sh
+
+./apply-policy-of-scalability.sh scapp users-daemon &
+./apply-policy-of-scalability.sh scapp logger-daemon &
+./apply-policy-of-scalability.sh scapp orders-daemon &
+./apply-policy-of-scalability.sh scapp validation-daemon &
+./project/src/scalability/apply-policy-of-scalability.sh scapp users-daemon &
+./project/src/scalability/apply-policy-of-scalability.sh scapp logger-daemon &
+./project/src/scalability/apply-policy-of-scalability.sh scapp orders-daemon &
+./project/src/scalability/apply-policy-of-scalability.sh scapp validation-daemon &
+./project/src/scalability/apply-policy-of-scalability.sh scapp catalog-daemon &
+./project/src/scalability/apply-policy-of-scalability.sh scapp cart-daemon &
+./project/src/scalability/apply-policy-of-scalability.sh scapp recommendation-daemon &

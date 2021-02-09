@@ -1,0 +1,8 @@
+#
+# This script can be run to test the scalability on scapp
+#
+
+docker build -t load-test ./scalability/artillery
+docker stop load-test
+docker rm load-test
+docker run -d --name load-test --network scapp-net vahidbe/load-test:latest

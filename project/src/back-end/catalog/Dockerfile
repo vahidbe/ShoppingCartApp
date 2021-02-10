@@ -31,8 +31,9 @@ ENV ADMIN_PASSW admin
 ENV LOG_URL http://logger-daemon:80
 ENV VALIDATION_URL http://validation-daemon:80
 ENV DB_URL http://${ADMIN_NAME}:${ADMIN_PASSW}@${DB_HOST}:5984/${DB_NAME}
-ENV AZURE_STORAGE_ACCOUNT soukeina
-ENV AZURE_STORAGE_ACCESS_KEY L5uuMrU7Fdok+S/gY/COLov5HPWx7O0WSN2/yvxt9MKSY37sGxaImGHDT9v61NNFmc6WRgMQuv6M8FczsPEjyw==
+# TODO add your account and key
+ENV AZURE_STORAGE_ACCOUNT account
+ENV AZURE_STORAGE_ACCESS_KEY key
 
 # we now use an script to deploy the authentication service
 CMD source boot-in-order.sh
